@@ -3,19 +3,20 @@ package com.ibm.academia.apirest.models.entities;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name="Passion")
 public class Passion implements Serializable {
 
@@ -54,4 +55,14 @@ public class Passion implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "card_id")}
     )
     private Set<Card> cards = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passion passion = (Passion) o;
+        return maxAge == passion.maxAge && minAge == passion.minAge && maxSalary == passion.maxSalary && minSalary == passion.minSalary;
+    }
+
+
 }

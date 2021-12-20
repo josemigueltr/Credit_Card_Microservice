@@ -22,9 +22,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/cards")
 public class CardsController {
-
-@Autowired
-PassionDao passionDao;
+    private PassionDao passionDao;
+    @Autowired
+    public  CardsController(PassionDao passionDao){
+        this.passionDao=passionDao;
+    }
 
     /**
      * Endpoint para obtener información sobre las tarjetas recomendadas a un cliente
