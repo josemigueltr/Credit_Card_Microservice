@@ -5,9 +5,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -48,6 +50,14 @@ public class Passion implements Serializable {
     @Min(value=1, message="El salario minimo no  puede ser menor a 0")
     private int minSalary;
 
+    @Column(name = "date_update")
+    @CreationTimestamp
+    private Date dateUpdate;
+
+    @Column(name = "date_created")
+    @CreationTimestamp
+    private Date dateCreated;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "Passion_cards",
@@ -55,6 +65,16 @@ public class Passion implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "card_id")}
     )
     private Set<Card> cards = new HashSet<>();
+
+    @PrePersist
+    private  void preCreated(){
+        this.dateCreated=new Date();
+    }
+
+    @PreUpdate
+    private  void preUpdate(){
+        this.dateUpdate=new Date();
+    }
 
     @Override
     public boolean equals(Object o) {

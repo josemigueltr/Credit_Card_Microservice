@@ -9,11 +9,11 @@ import java.util.List;
 public  class DummyData {
 
     public static Passion passion1(){
-        return new Passion(null,"Shopping",23,18,14999,7000,null);
+        return new Passion(null,"Shopping",23,18,14999,7000,null,null,null);
     }
 
     public static Passion passion2(){
-        return new Passion(null,"Shopping",75,18,34999,7000, new HashSet<Card>(slotCards1()));
+        return new Passion(null,"Shopping",75,18,34999,7000,null,null, new HashSet<Card>(slotCards1()));
     }
     public static List<Card> slotCards1(){
             List<Card> cards =List.of(
